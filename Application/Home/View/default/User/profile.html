@@ -1,0 +1,103 @@
+<extend name="Base/common" />
+
+<block name="style">
+  <link href="__CSS__/page/user-style.css" rel="stylesheet">
+</block>
+
+<block name="container">
+
+<!---->
+<section class="row">
+  <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2 mtl">
+    <div class="panel panel-default panel-page">
+      <div class="panel-heading"><h2>修改密码</h2></div>
+      <form id="login-form" class="form-vertical login-form" action="__SELF__" method="post" novalidate="novalidate">        
+        
+        <div class="form-group mb40">
+          <label class="control-label" for="inputPassword">原始密码</label>
+          <div class="controls">
+            <input class="form-control" id="inputPassword" type="password" value=""  placeholder="请输入密码" errormsg="密码为6-20位" nullmsg="请填写密码" datatype="*6-20" name="old" autocomplete="off">
+
+            <div class="help-block"></div>
+          </div>
+        </div>
+
+        <div class="form-group mb40">
+          <label class="control-label" for="inputPassword">新的密码</label>
+          <div class="controls">
+            <input class="form-control" id="inputPassword" type="password" placeholder="请输入密码" errormsg="密码为6-20位" nullmsg="请填写密码" datatype="*6-20" name="password" autocomplete="off">
+          <div class="help-block" style="display:none;"></div></div>
+        </div>
+        
+        <div class="form-group mb40">
+          <label class="control-label" for="inputPassword">确认密码</label>
+          <div class="controls">
+            <input class="form-control" id="inputPassword" type="password" placeholder="请再次输入密码" errormsg="您两次输入的密码不一致" nullmsg="请填确认密码" datatype="*6-20" name="repassword" autocomplete="off">
+          <div class="help-block" style="display:none;"></div></div>
+        </div>
+
+        <div class="form-group mb40 js-captcha">
+            <label class="control-label required" for="captcha_code">验证码</label>
+            <div class="controls row">
+              <div class="col-xs-5">
+                <input type="text" id="inputPassword" class="form-control" placeholder="请输入验证码"  errormsg="请填写5位验证码" nullmsg="请填写验证码" datatype="*5-5" name="verify" autocomplete="off"></input>
+              </div>
+              <div class="col-xs-7">
+                <img class="verifyimg reloadverify" alt="点击切换" src="{:U('verify')}" style="cursor:pointer;height:42px;width:98%">
+              </div>
+              <div class="col-md-12 help-block"></div>  
+            </div>
+            <div class="controls Validform_checktip text-danger"></div>
+        </div>
+        <div class="form-group">
+            <div class="controls">
+              <button type="submit" data-submiting-text="正在提交"  class="btn btn-primary btn-large btn-block">修 改</button>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+</section>
+</block>
+
+<block name="side"></block>
+<block name="script">
+	<script type="text/javascript">
+
+    	$(document)
+	    	.ajaxStart(function(){
+	    		$("button:submit").addClass("log-in").attr("disabled", true);
+	    	})
+	    	.ajaxStop(function(){
+	    		$("button:submit").removeClass("log-in").attr("disabled", false);
+	    	});
+
+    	$("form").submit(function(){
+    		var self = $(this);
+    		$.post(self.attr("action"), self.serialize(), success, "json");
+    		return false;
+
+        function success(data){
+          if(data.status){
+            window.location.href = data.url;
+          } else {
+            //需要对提示进行优化
+            self.find(".Validform_checktip").text(data.info);
+            //刷新验证码
+            $(".reloadverify").click();
+          }
+        }
+    	});
+
+      $(function(){
+      var verifyimg = $(".verifyimg").attr("src");
+            $(".reloadverify").click(function(){
+                if( verifyimg.indexOf('?')>0){
+                    $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+                }else{
+                    $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+                }
+            });
+    });
+	</script>
+</block>

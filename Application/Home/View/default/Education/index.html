@@ -1,0 +1,104 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/education-style.css" rel="stylesheet">
+</block>
+
+<block name="header">
+	<!--页头 Stater-->
+  <div class="container">
+    <include file="Public/head-screen" /> 
+  </div>
+  <!--页头 End-->
+</block>
+
+<block name="container">
+    <!--column Stater-->
+    <section id="column">
+      <ol class="breadcrumb">
+        <li><span class="fui-home">&nbsp;&nbsp;</span><a href="__MODULE__/index"><b>主页</b></a></li>
+        <li class="active">{$PageFeature.Title}</li>
+      </ol>
+    </section>
+    <!--column End-->
+    <!-- Sattr-->
+    <section id="" class="row demo-row" >
+         <div class="col-md-12" >
+           <ul id="edulist" class="nav nav-pills">
+             <li class=<eq name="page" value="1">"active"</eq>>
+              <a  href=<eq name="page" value="1">"#tabVideo"<else/>{:U('Education/index',array('page'=>1))}</eq>><b>教学内容</b></a></li>
+             <li class=<eq name="page" value="2">"active"</eq>>
+              <a href=<eq name="page" value="2">"#tabVideo"<else/>"{:U('Education/index',array('page'=>2))}"</eq>><b>情景教学</b></a></li>
+             <li class=<eq name="page" value="3">"active"</eq>>
+              <a  href=<eq name="page" value="3">"#tabVideo"<else/>"{:U('Education/index',array('page'=>3))}"</eq>><b>教学效果与评价<b></a></li>
+
+
+          </ul>
+          <article  class="tab-content" >
+             <div class="tab-pane fade in active" id="tabVideo">
+                <div class="row demo-row" style="padding: 10px 0px;">
+                  <div class="col-md-8">
+                    <article id="" class="panel panel-default">
+                      <div class="panel-heading">
+                      <h3 class="panel-title">&nbsp;&nbsp;
+                        <switch name="page">
+                          <case value="1">教学内容</case>
+                          <case value="2">教学效果与评价</case>
+                          <case value="3">情景教学</case>
+                        </switch>
+                      </h3>
+                      </div>
+
+                      <div class="panel-body blog-post">
+                        <h6 class="blog-post-title">{$content.title}</h6>
+                        <p class="blog-post-meta ">发表时间：{$content.create_time|default=time()|date='Y-m-d',###}</p>
+                        
+                        <!-- 内容Stater -->
+                          {$content.content}
+                        <!--内容结束-->
+                      </div><!-- /.blog-post -->
+                      </article>
+                    
+                  </div>
+                  <div class="col-md-4">
+                     
+                      <article id="" class="panel panel-default">
+                      <div class="panel-heading">
+                      <h3 class="panel-title">&nbsp;&nbsp;
+                        <switch name="page">
+                          <case value="1">教学内容</case>
+                          <case value="2">教学效果与评价</case>
+                          <case value="3">情景教学</case>
+                        </switch>列表
+                      </h3>
+                      </div>
+                      <div class="panel-body rightsidebar" style="padding:0px;">
+                        <foreach name="list" item="vo" key="k">
+                          <a href="{:U('Education/index',array('page'=>$page,'key'=>$vo['id']))}"  
+                            class=<eq name="vo.id" value="$keys">"list-group-item active" <else/> "list-group-item"</eq>> {$vo.title}</a>
+                        </foreach>
+                      </div>
+                      </article>
+                  </div>
+                </div>
+             </div>
+             
+<!---->
+          </article>
+        </div>
+      </section>
+    <!--横向层一End-->
+    <!-- end-->
+
+</block>
+<block name="script">
+    <script>
+    $(".activity-item").mouseover(function(){
+        $(this).addClass("activity-shadow");
+    });
+     $(".activity-item").mouseout(function(){
+        $(this).removeClass("activity-shadow");
+    });
+    </script>
+</block>
+  

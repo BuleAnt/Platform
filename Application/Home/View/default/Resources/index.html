@@ -1,0 +1,176 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/resources-style.css" rel="stylesheet">
+</block>
+
+<block name="header">
+  <!--页头 Stater-->
+  <div class="container">
+    <include file="Public/head-screen" /> 
+  </div>
+  <!--页头 End-->
+</block>
+
+<block name="container">
+  <!--column Stater-->
+  <section id="column">
+    <ol class="breadcrumb">
+      <li><span class="fui-home">&nbsp;&nbsp;</span><a href="__MODULE__/index"><b>主页</b></a></li>
+      <li class="active">{$PageFeature.Title}</li>
+    </ol>
+  </section>
+  <!--column End-->
+    <!--横向层一Start-->
+      <section id="cross-zone" class="row demo-row" >
+          <section style="background:#ECF0F1;height:60px;display: none;" >
+            <article class="col-xs-10 col-sm-10" style="padding-right: 0px;">
+              <!-- Primary tags input -->
+              <div class="tagsinput-primary">
+              <input id="tagsinput" class="tagsinput" data-role="tagsinput" value="全部," />
+              </div>
+              
+            </article>
+            <article class="col-xs-2 col-sm-2" style="padding-left: 0px;" >
+              <div class="activity-button tagsinput-primary" >
+                  <a class="btn btn-info btn-large btn-block" href="###"><span><b>搜寻资源</b></span></a>
+              </div>
+            </article>
+          </section>
+
+          <article class="xs-max-12 win_in">
+            <h6>资源标签</h6><hr/>
+            <a class="win_tab" data-id="-1" style="background: #3498db;color:#FFFFFF;">全部</a>  
+            <foreach name="tabs" item="vo" >
+            <a class="win_tab" data-id="{$vo.id}">{$vo.name}</a>   
+           </foreach>
+          </article>
+      </section>
+      <!--横向层一End-->
+
+      <!--横向层二Start-->
+      <section id="resourceContainer" class="" >
+  
+        <!-- Cx标签 statr-->
+        <foreach name="courseList" item="vo" key="k">
+          <div class="col-md-4">
+            <article class="activity-item">
+              <div class="activity-img">
+                <a href="{:U('Video/index?id='.$vo['id'])}" class="activity-title" >
+                   <img src="{$vo.img|get_cover='path'}"  height="100%" width="100%">
+                </a>
+              </div>
+              <div class="activity-info"> 
+                <div class="activity-title">
+                  <a>{$vo.title}</a><hr/>
+                  <span><a href="{:U('Teacher/index?id='.$vo['authority'])}" >{$vo.name}</a></span><strong class="pad_10">|</strong>
+                  <span>{$vo.company}</span>
+                  <span class="width_100">
+                    <a>{$vo.create_time}</a></span>
+                  <div>&nbsp;
+                    <span class="fui-user">&nbsp;&nbsp;{$vo.player_number}</span><span>人学习</span>
+                  </div>
+                </div>
+              </div>
+            
+            </article>
+      
+          </div>
+        </foreach>
+        <!-- Cx标签 End-->
+      </section>
+<!--底部下了列表层-->
+      <section class="row demo-row"  >
+        <div class="col-md-12 activity-item" style="border-bottom: 2px solid #DDD;" >
+          <a id="moreCourses" class="btn1 center-block" title="显示更多课程">显示更多课程...</a>
+        </div>
+      </section>       
+        
+     
+
+</block>
+<block name="script">
+  <script>
+    var startValue = 1;
+    var tabValue = -1;
+  </script>
+  <script>
+  /**
+   * [获得更多课程]
+   */
+    $("#moreCourses").on("click", function(){
+
+      var url = "{:U('Resources/getCourseListAjax')}";
+      //getCourseListAjax
+      $.get(url,{tab:tabValue , start: ++startValue, rows: "6"}, function(data){
+        var dataObj = eval("("+data+")");//转换为json对象 
+      if(dataObj)
+      {
+        for(var i=0;i<dataObj.length;i++){
+          var vo = dataObj[i];
+          var html1 = '<div class="col-md-4"><article class="activity-item"><div class="activity-img"><a href='+vo["id"]+' class="activity-title" ><img src="'+vo["img"]+'" height="100%" width="100%"></a></div>';
+
+           var html2 ='<div class="activity-info"><div class="activity-title"><a>'+vo["title"]+'</a><hr/><span><a href="'+vo["authority"]+'" >'+vo["name"]+'</a></span><strong class="pad_10">|</strong><span>'+vo["company"]+'</span><span class="width_100"><a>'+vo["create_time"]+'</a></span><div>&nbsp;<span class="fui-user">&nbsp;&nbsp;'+vo["player_number"]+'</span><span>人学习</span></div></div></div></article></div>';
+           $("#resourceContainer").append(html1+html2);
+         }
+      }
+    
+       else
+       {
+           $("#moreCourses").text("没有课程了");
+       }
+    });
+    });
+
+/**
+ * [切换标签]
+ */
+  $("a.win_tab").on("click", function(){
+      var id = $(this).attr("data-id"); 
+      //修改状态
+      //无文档，暂停修改 2015-09-29 10:25
+      
+      //$("a.win_tab").css("background","#3498db" color:#FFFFFF;);
+      $("a.win_tab").css({"background":"#ffffff","color":"#000"});
+      $(this).css({"background":"#3498db","color":"#FFFFFF"});
+      //获得数据
+      var url = "{:U('Resources/getCourseListAjax')}";
+      //getCourseListAjax
+      tabValue = id;
+      startValue = 0;
+      $.get(url,{tab:tabValue , start: ++startValue, rows: "6"}, function(data){
+        var dataObj = eval("("+data+")");//转换为json对象 
+        $("#resourceContainer").html('');
+      if(dataObj)
+      {
+        $("#moreCourses").text("显示更多课程...");
+        for(var i=0;i<dataObj.length;i++){
+          var vo = dataObj[i];
+          var html1 = '<div class="col-md-4"><article class="activity-item"><div class="activity-img"><a href='+vo["id"]+' class="activity-title" ><img src=""  style="background: url('+vo["img"]+') no-repeat center;" height="100%" width="100%"></a></div>';
+
+           var html2 ='<div class="activity-info"><div class="activity-title"><a>'+vo["title"]+'</a><hr/><span><a href="'+vo["authority"]+'" >'+vo["name"]+'</a></span><strong class="pad_10">|</strong><span>'+vo["company"]+'</span><span class="width_100"><a>'+vo["create_time"]+'</a></span><div>&nbsp;<span class="fui-user">&nbsp;&nbsp;'+vo["player_number"]+'</span><span>人学习</span></div></div></div></article></div>';
+           $("#resourceContainer").append(html1+html2);
+         }
+      }
+      else{
+          $("#moreCourses").text("没有课程了");
+       }
+    });
+
+  });
+
+  //替换图片数据
+  function contentAnalysisST(dateObject) {
+    //获得数据 
+    var title = dateObject.attr("data-id");
+    var content = dateObject.attr("data-assn-content");
+    var imgurl = dateObject.attr("src");
+    $(".side-text").children("h6").text(title );
+    $(".side-text").children("p").text(content);
+    $(".browser-img").children("img").attr("src",imgurl);
+  }
+
+  
+  </script>
+</block>
+  

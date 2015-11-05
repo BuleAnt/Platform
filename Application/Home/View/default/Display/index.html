@@ -1,0 +1,87 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/display-style.css" rel="stylesheet">
+</block>
+
+<block name="header">
+  <div class="container">
+	   <include file="Public/carousel" /> 
+  </div>
+</block>
+
+<block name="container">
+  <!--横向层一Start-->
+    <section class="row demo-row" >
+      <div class="col-md-8" >
+      <!--标题 简单介绍-->
+          <div class="presentation-title-div">
+            <div class=" block-1">
+              <h6>{$introduction.title}<br>
+                <small class="enfont">{$introduction.titleSmall}</small></h6>
+                <br>{$introduction.content}<br><br>
+                <a href="{$introduction.link}" class="btn btn-default cnfont">了解更多</a><br>
+                <br>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-4">
+          <div class="presentation-block-div"></div>
+          <div class="presentation-block-div"></div>
+      </div>
+    </section>
+    <!--横向层一End-->
+    <section class="row demo-row">
+      <div class="text-line gray">
+        <h5><span>作品展示</span></h5>
+        <div class="line"></div>
+      </div>
+    </section>
+    <!--横向层二Start-->
+    <section class="row demo-row" style="" >
+          <!-- Cx标签 statr-->
+      <foreach name="displayWork" item="vo" key="k" >
+        <div class="col-md-4 col-sm-6 work-data-item">
+            <a><img src="{$vo.img|get_cover='path'}" alt="{$vo.title}" class="img-responsive" data-assn-link="{$vo.id}" data-assn-key="{$k}" /></a>
+        </div>
+      </foreach>  
+      <!-- Cx标签 End-->
+    </section>
+    <!--横向层二End--> 
+</block>
+
+<block name="modal">
+  <!--定义变量，供模板使用-->
+  <assign name="modalData" value="$displayWork" />
+  <include file="Public/modal-media" />
+</block>
+
+<block name="script">
+<script>
+  $(".activity-item").mouseover(function(){
+    $(this).addClass("activity-shadow");
+    });
+    $(".activity-item").mouseout(function(){
+      $(this).removeClass("activity-shadow");
+    });
+</script>
+<script>
+      
+  $(".work-data-item").children("a").click(function(){
+      var key = $(this).children("img").attr("data-assn-key");
+      showModa(key);
+    });
+
+  function showModa(key) { 
+    
+    $('#myModal').modal({
+      keyboard: false
+    });
+    $("#myCarouse2").carousel(parseInt(key));
+    //$('video, audio').mediaelementplayer();
+  };
+
+  
+</script>
+</block>
+  

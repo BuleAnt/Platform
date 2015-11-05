@@ -1,0 +1,143 @@
+<style>
+	/*错误提示*/
+.errorBox{display:none;}
+.errorBox.vError{display: block;}
+.errorBox .error{color:#f00; }
+</style>
+<!--在线留言-->
+<div class="row">
+	<form id="messageForm" class="form-horizontal" method="post" action="{:addons_url('Message://Message/update')}">
+			<eq name="config.title" value="1">
+				 <div class="form-group">
+				    <label for="title" class="col-sm-2 control-label">留言标题</label>
+				    <div class="col-sm-10">
+				      <input class="title form-control" id="title" name="title" type="text" placeholder="请输入留言标题" />
+				    </div>
+				  </div>
+			</eq>
+			<eq name="config.summary" value="1">
+				 <div class="form-group">
+				    <label for="summary" class="col-sm-2 control-label">留言内容</label>
+				    <div class="col-sm-10">
+							<textarea name="summary" id="summary" class="summary form-control" placeholder="留言内容"></textarea>
+				    </div>
+				  </div>
+			</eq>
+			<eq name="config.username" value="1">
+			 <div class="form-group">
+				    <label for="username" class="col-sm-2 control-label">您的称呼</label>
+				    <div class="col-sm-10">
+				      <input class="username form-control" id="username" name="username" type="text" placeholder="请输入真实姓名" />
+				    </div>
+				  </div>
+			</eq>
+			<eq name="config.phone" value="1">
+			 	<div class="form-group">
+				    <label for="phone" class="col-sm-2 control-label">联系电话</label>
+				    <div class="col-sm-10">
+				      <input class="phone form-control" id="phone" name="phone" type="text" placeholder="请输入联系电话" />
+				    </div>
+				  </div>
+			</eq>
+			<eq name="config.addr" value="1">
+				<div class="form-group">
+				    <label for="addr" class="col-sm-2 control-label">联系地址</label>
+				    <div class="col-sm-10">
+				      <input class="addr form-control" id="addr" name="addr" type="text" placeholder="请输入联系地址" />
+				    </div>
+				  </div>
+			</eq>
+			<eq name="config.email" value="1">
+				<div class="form-group">
+				    <label for="email" class="col-sm-2 control-label">电子邮件</label>
+				    <div class="col-sm-10">
+				      <input class="email form-control" id="email" name="email" type="text" placeholder="请输入电子邮件" />
+				    </div>
+				  </div>
+			</eq>
+			<eq name="config.qq" value="1">
+				<div class="form-group">
+				    <label for="qq" class="col-sm-2 control-label">QQ</label>
+				    <div class="col-sm-10">
+				      <input class="qq form-control" id="qq" name="qq" type="text" placeholder="请输入QQ" />
+				    </div>
+				  </div>
+			</eq>
+			<eq name="config.type" value="1">
+				<div class="form-group">
+				    <label for="inputEmail3" class="col-sm-2 control-label">留言分类</label>
+				    <div class="col-sm-10">
+				      <select class="form-control" name="type">
+							<option value="0">在线咨询 </option>
+							<option value="1">投诉建议 </option>
+						</select>
+				    </div>
+				  </div>
+			</eq>
+			<li>
+				<span class="l">&nbsp;</span>
+				<div class="r">
+					<button type="button" id="submitButton" class="btn btn-primary btn-lg btn-block">
+						提 交
+					</button>
+				</div>
+			</li>
+	</form>
+</div>
+<br/>
+<div class="row text-left">
+	<volist name="list" id="vo">
+		<blockquote>
+		  <p><b>Q:</b>{$vo.summary}</p>
+		  <footer>
+		  		<b>A:</b>{$vo.reply_info}<br/>
+		  		来自：{$vo.username|default='匿名'} &nbsp;&nbsp;&nbsp;&nbsp; 创建时间：{$vo.create_time|date='Y-m-d',###}
+		  </footer>
+		</blockquote>
+	</volist>
+	<div class="page">
+		{$page}
+	</div>
+</div>
+<script type="text/javascript" src="__ADDONROOT__/js/form.validate.js"></script>
+<script>
+	/**
+	 * messageSubmit 在线留言
+	 *+---------------------------------
+	 * @author  Nzing Jan 17, 2012
+	 * @access public
+	 *+---------------------------------
+	 * @return void
+	 */
+  function messageSubmit() {
+		var validate= {
+			title : {
+				required : true
+			},
+			summary : {
+				required : true
+			},
+			phone : {
+				phone : true
+			},
+			email : {
+				email : true
+			},
+			qq : {
+				unchinese : true
+			}
+		};
+		BSLQ.validator("messageForm", validate, "NO");
+		if ("YES" != BSLQ.accomplish) {
+			var margintop = $('.vError').eq(0).offset().top - 30;
+			jQuery("html, body").animate({
+				scrollTop : margintop
+			}, 100);
+			return;
+		}
+		$('#messageForm').submit();
+	};
+	$('#submitButton').click(function() {
+		messageSubmit();
+	}); 
+</script>

@@ -1,0 +1,106 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/index-style.css" rel="stylesheet">
+</block>
+
+<block name="header">
+   <include file="Public/carousel" /> 
+</block>
+
+<block name="container">
+    <section class="row demo-row">
+            <div class="text-line gray">
+                <h5><span>主题活动</span></h5>
+                <div class="line"></div>
+              </div>
+        </section>
+        
+        <!--横向层二Start-->
+        <section class="row demo-row" >
+
+            <!-- Cx标签 statr-->
+            <foreach name="subjectActivity" item="vo" key="k" length="ln">
+                <div class="col-md-4">
+                  <article class="activity-item">
+                    <div class="activity-img">
+                      <a href="#" class="activity-title" >
+                        <img src="" style="background: url(__IMG__{$vo.img}) no-repeat center;" height="100%" width="100%">
+                      </a>
+                     </div>
+                    <div class="activity-info"> 
+                      <div class="activity-title">
+                        <a>{$vo.title}</a><hr/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>{$vo.summary}</span>
+                      </div>
+                      
+                      <div class="activity-button">
+                        <a class="btn btn-info btn-large btn-block" href="{:U('Activity/index')}{$vo.link}"><span><b>凑个热闹</b></span></a>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+            </foreach>
+            <!-- Cx标签 end-->
+        </section>
+        <!--横向层二End-->
+        
+       <section class="row demo-row">
+        <div class="text-line gray">
+            <h5><span>关于我们</span></h5>
+            <div class="line"></div>
+          </div>
+      </section>
+
+      <!--横向层三Start--> 
+      <section class="row demo-row" >
+        <div class="col-md-8">
+          <article class="panel panel-default">
+            <div class="panel-heading hidden">
+            <h3 class="panel-title"><span class="fui-eye"></span>&nbsp;&nbsp;{$aboutUs.0.headTitle}</h3>
+            </div>
+            <div class="panel-body block3-p-body">
+               <p>
+                <strong>{$AboutUs.Platform.title}</strong><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>{$AboutUs.Platform.value}</span></p>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+           <article class="panel panel-default">
+            <div class="panel-heading hidden">
+            <h3 class="panel-title"><span class="fui-eye"></span>&nbsp;&nbsp;{$aboutUs.1.headTitle}</h3>
+            </div>
+            <div class="panel-body block3-p-body">
+               <p>
+                <strong>联系方式</strong><br>
+                <span>
+                  <span class="fui-mail">&nbsp;{$AboutUs.Email.title}：</span>
+                    <small><a href="mailto: {$AboutUs.Email.value}">{$AboutUs.Email.value}</a></small><br/>
+                  <span class="fui-new">&nbsp;留言板：</span>
+                    <small><a href="{:U('Message/index')}" >进入</small><br/>
+                  <span class="fui-wordpress">&nbsp;{$AboutUs.WordPess.title}：</span>
+                    <small><a href="{$AboutUs.WordPess.value}" >进入</a></small><br/>
+                  <span class="icon-dizhi"> &nbsp;{$AboutUs.Address.title}：</span>
+                    <small><a>{$AboutUs.Address.value}</a></small><br/>
+                </span></p>
+            </div>
+          </article> 
+        </div>
+
+      </section>
+   
+</block>
+<block name="script">
+    <script>
+    $(".activity-item").mouseover(function(){
+        $(this).addClass("activity-shadow");
+    });
+     $(".activity-item").mouseout(function(){
+        $(this).removeClass("activity-shadow");
+    });
+    </script>
+</block>
+  

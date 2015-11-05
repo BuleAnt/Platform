@@ -1,0 +1,77 @@
+
+    <!-- 底部
+    ================================================== -->
+<!--底部Stater-->
+    <footer class="es-footer container-fluid" >
+      <!--尾链Stater-->
+      <div class="footer-link">
+        <div class="container">
+          <div class ="row demo-row" style="padding: 10px 20px;">
+            <section class="col-md-7">
+              <div class="link-item">
+                <h6>我是学生</h6>
+                <ul class="list-unstyled" >
+                  <li><a  target="_blank">如何注册</a></li>
+                  <li><a  target="_blank">如何学习</a></li>
+                </ul>
+              </div>
+
+              <div class="link-item ">
+                <h6>我是老师</h6>
+                <ul class="list-unstyled" >
+                  <li><a href="{:U('Admin/Resource/index')}" target="_blank">发布课程</a></li>
+                  <li><a href="{:U('Admin/Tab/index')}" target="_blank">教学资料库</a></li>
+                </ul>
+              </div>
+
+              <div class="link-item ">
+                <h6>我是管理员</h6>
+                <ul class="list-unstyled" >
+                  <li><a href="{:U('Admin/Config/groups')}" target="_blank">系统设置</a></li>
+                  <li><a href="{:U('Admin/Advertisement/index')}" target="_blank">资源管理</a></li>
+                  <li><a href="{:U('Admin/User/index')}" target="_blank">用户管理</a></li>
+                </ul>
+              </div>
+
+              <div class="link-item ">
+                <h6>关于我们</h6>
+                <ul class="list-unstyled" >
+                  <li><a target="_blank">网站地图</a></li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="col-md-5 friendly-link">
+              <article class="panel">
+                <div class="panel-heading">
+                <h6 class="panel-title"><span class="fui-link"></span>&nbsp;&nbsp;友情链接</h6>
+                </div>
+                <div class="panel-body ">
+                   {:W('Config/friendlink')}
+                </div>
+              </article> 
+
+            </section>
+          </div>
+        </div>
+      </div>
+      <!--尾链End-->
+
+      <!--版权Stater-->
+      <div class="copyright">
+           <div class="container" style="padding: 8px 20px;">
+              {:W('Config/copyright')}
+           </div>
+      </div>
+      <!--版权End-->
+    </footer>
+<!--底部End-->
+<block name="modal"></block>
+
+<include file="Public/var"/>
+<block name="script"></block> <!-- 用于加载js代码 -->
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+{:hook('pageFooter', 'widget')}
+<div class="hidden"><!-- 用于加载统计代码等隐藏元素 -->
+	<block name="hidden"></block>
+</div>

@@ -1,0 +1,132 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/news-style.css" rel="stylesheet">
+  <style>
+ /*定义第一横区的设置，作品展示介绍*/
+  
+  .block-1 {
+    background-color: #7F8C8D;
+    color: #FFFFFF;
+    padding: 10px;
+    margin-bottom: 0px;
+    max-height: 320px;
+    margin-top: 60px;
+  }
+  .block-1 {
+    padding: 20px 30px 10px 20px;
+  }
+  .block-1 .btn-default:link, .block-1 .btn-default:visited {
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+    background-color: transparent;
+    border:1px solid #FFFFFF;
+  }
+  li {list-style-type:none;}
+  .page {
+    margin: 10px 0;
+  }
+  .page .current {
+    border-top: 3px solid #4BBD00;
+    height: 30px;
+    line-height: 26px;
+}
+.page a, .page span {
+    float: left;
+    margin-left: -1px;
+    padding: 0 14px;
+    height: 30px;
+    line-height: 30px;
+    color: #000;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    /* background-color: #4bbd00; */
+    color: #686868;
+    border: 1px solid #CCCCCC;
+}
+
+.page .next, .page .prev {
+    font-family: "宋体";
+    font-weight: bold;
+}
+.media-object {
+    width: 110px;
+    height: 110px;
+    background: url(__IMG__/page/public/avatar.png);
+    background-size: 100%;
+}
+  </style>
+</block>
+
+<block name="header">
+  <!--页头 Stater-->
+  <div class="container">
+    <include file="Public/head-screen" /> 
+  </div>
+  <!--页头 End-->
+</block>
+
+<block name="container">
+
+     <section class="row demo-row">
+        <div class="text-line gray">
+            <h5><span>留言板</span></h5>
+            <div class="line"></div>
+          </div>
+      </section>
+
+      <!--横向层三Start--> 
+      <section class="row demo-row" >
+        <article  class="col-md-1" > </article>
+        <article id="indexMain" class="col-md-10">
+        <!--时间 Statr -->
+          <div id="HeadBoox">
+            <div class="time">
+              <span class="fui-time">&nbsp;</span>
+              {$data.time|default=time()|date='Y年m月d日',###}
+            </div>
+            <div class="weather">
+              <iframe class="weather"  allowtransparency="true" frameborder="0" width="300" height="20" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&amp;z=1&amp;t=1&amp;v=0&amp;d=1&amp;bd=0&amp;k=&amp;f=808080&amp;q=1&amp;e=0&amp;a=1&amp;c=54527&amp;w=300&amp;h=24&amp;align=left"></iframe>
+            </div>
+          </div>
+        <!--时间 End -->
+
+        <ul class="indexList" id="pic">
+          <!-- Cx标签 statr-->
+          <foreach name="list" item="vo" key="k" >
+            <li>
+              <div class="media">
+                <a class="pull-left" >
+                    <img class="media-object" src="{$vo.img|get_cover='path'}" 
+                    alt="">
+                 </a>
+                  
+                 <div class="media-body">
+                    <hgroup>
+                      <h4 class="media-heading">{$vo.username}</a></h4>
+                      <h5><span></span>{$vo.create_time|default=time()|date='Y-m-d H:i',###}</h5>
+                    </hgroup>
+                    <section>{$vo.summary}</section>
+                 </div>
+              </div>
+            </li>  
+          </foreach>
+          <!-- Cx标签 end-->
+        </ul>
+          <!-- 分页 -->
+        <div class="page">
+        {$_page}
+        </div>
+        
+        <div class="block-1">{:hook('Message')}</div>
+    </article>
+    <article  class="col-md-1" > </article>
+      </section>    
+        
+     
+
+</block>
+<block name="script">
+
+</block>
+  

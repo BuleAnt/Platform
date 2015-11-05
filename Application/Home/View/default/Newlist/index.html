@@ -1,0 +1,78 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/newlist-style.css" rel="stylesheet">
+</block>
+
+<block name="container">
+  <!--内容部分-->
+ <!--column Stater-->
+  <section id="column">
+    <ol class="breadcrumb">
+      <li><span class="fui-home">&nbsp;&nbsp;</span><a href="__MODULE__/index"><b>主页</b></a></li>
+      <li class="active">{$PageFeature.Title}</li>
+    </ol>
+  </section>
+  <!--column End-->
+
+  <div class="row"> 
+
+    <article id="indexMain" class="col-sm-8">
+        <ul class="indexList" id="pic">
+          <!-- Cx标签 statr-->
+          <foreach name="listData" item="vo" key="k" >
+            <li>
+              <div class="media">
+                <hgroup>
+                  <b class="media-heading">
+                    <a href="{:U('New/index?type=1&id='.$vo['id'])}" target="_blank">{$vo.title}</a>
+                  </b>
+                  <b class="text-muted pull-right">{$vo.create_time|default=time()|date='Y-m-d',###}</b>
+                </hgroup>
+                
+                <div class="cl"></div>
+              </div>
+            </li>  
+          </foreach>
+          <!-- Cx标签 end-->
+            
+        </ul>
+        <div class="panel-footer">
+          
+          <ul class="pagination-plain">
+            <li class="previous"><a href="#fakelink">← 上一页</a></li>
+              
+              <for start="1" end="$pageValue" name='i'>
+                <li class=<eq name="i" value="1">"active"</eq>><a href="#fakelink" >{$i}</a></li>
+              </for>
+              
+            <li class="next"><a href="#fakelink">下一页 →</a></li>
+          </ul>
+          
+        </div>
+    </article>
+    
+    <article class="col-sm-4">
+      <div class="indexSub indexSub1">
+          <h6 class="indexTitle title1"><span class="fui-bubble">&nbsp;</span>列表
+          </h6>
+          <ul class="indexMedia">
+            <!-- Cx标签 statr-->
+            <foreach name="listHost" item="vo" key="k" >
+
+                <li class=<if condition="$vo.key eq $group">"active"<else /></if>><a href="{:U('Newlist/index?type=1&group='.$vo['key'])}" >{$vo.value}</a></li>
+            </foreach>
+            <!-- Cx标签 end-->
+          </ul>
+      </div>
+    </article>   
+      
+  </div>
+
+</block>
+<block name="script">
+    <script>
+   
+    </script>
+</block>
+  

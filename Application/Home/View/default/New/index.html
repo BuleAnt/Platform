@@ -1,0 +1,93 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/new-style.css" rel="stylesheet">
+</block>
+
+<block name="container">
+  <!--头部标题部分-->
+  <section id="column">
+    <ol class="breadcrumb">
+      <li ><span class="fui-home">&nbsp;&nbsp;</span><a href="__MODULE__/index"><b>主页</b></a></li>
+      <li >{$PageFeature.Title}</li>
+      <li class="active">{$PageFeature.Title}</li>
+    </ol>
+  </section>
+  <!--内容部分-->
+  <div class="row">
+    <article id="indexMain" class="col-sm-9">
+      <div class="contentTitle">          
+        <h6 >{$mediaValue.title}</h6>
+      </div> 
+      
+      <dt class="contentTime">{$mediaValue.time|default=time()|date='Y年m月d日',###} &nbsp;&nbsp;  点击:[ {$mediaContent['bookmark']+1} ]</dt>
+
+      <!-- 内容 statr-->
+      <section class="fck">
+        <!-- Cx标签 statr-->
+        {$mediaContent.content}
+        <!-- Cx标签 end  -->
+      </section>
+      <!-- 内容 end-->
+  </article>
+    
+    <article class="col-sm-3">
+
+      <div class="indexSub indexSub1">
+          <h6 class="indexTitle title1"><span class="fui-bubble">&nbsp;</span>通知
+             <a href="{:U('Newlist/index?type=1&group=3')}" ><span class="badge pull-right">move</span></a>
+          </h6>
+          <ul class="indexMedia">
+            <!-- Cx标签 statr-->
+            <foreach name="notice" item="vo" key="k" >
+                <li><a href="{:U('New/index?type=1&id='.$vo['id'])}" target="_blank">{$vo.title}</a></li>
+            </foreach>
+            <!-- Cx标签 end-->
+          </ul>
+      </div>
+
+      <div class="indexSub indexSub2">
+          <h6 class="indexTitle title1"><span class="fui-windows">&nbsp;</span>学院新闻
+          <a href="{:U('Newlist/index?type=1&group=2')}"  ><span class="badge pull-right">move</span></a>
+          </h6>
+
+        <!--Carousel start-->
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+            <!-- 轮播（Carousel）指标 -->
+            <ol class="carousel-indicators">
+              <!-- Cx标签 statr-->
+              <foreach name="collegeNews" item="vo" key="k" >
+                <li data-target="#myCarousel" data-slide-to="{$k}" 
+                  class= <eq name="k" value="0">"active"</eq> ></li>
+              </foreach>
+              <!-- Cx标签 end-->
+            </ol>   
+            <!-- 轮播（Carousel）项目 -->
+            <div class="carousel-inner">
+              <!-- Cx标签 statr-->
+              <foreach name="collegeNews" item="vo" key="k" >
+                <div class= <eq name="k" value="0">"item active" <else/> "item "</eq>>
+                  <a href="{:U('New/index?type=1&id='.$vo['id'])}"><img src="{$vo.img|get_cover='path'}" alt="{$vo.title}" /></a>
+                   <div class="carousel-caption">{$vo.title}</div>
+                </div>
+              </foreach>
+              <!-- Cx标签 end-->
+            </div>
+          </div> 
+        <!--Carousel End-->
+      </div>
+    </article>      
+  </div>
+
+</block>
+<block name="script">
+    <script>
+    $(".activity-item").mouseover(function(){
+        $(this).addClass("activity-shadow");
+    });
+     $(".activity-item").mouseout(function(){
+        $(this).removeClass("activity-shadow");
+    });
+    </script>
+</block>
+  

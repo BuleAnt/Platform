@@ -1,0 +1,118 @@
+<extend name="Public/base"/>
+<block name="style">
+	<style>
+		dl {
+			padding: 0.2em;
+		}
+		dt {
+			font-weight: bold;
+			font-size: 14px;
+			color: #999;
+			padding: 0.2em;
+		}
+		dd {
+			font-size: 12px;
+			padding: 0.2em;
+		}
+	</style>
+</block>
+<block name="body">
+	<notempty name="info.title">
+		<dl>
+			<dt>
+				留言标题
+			</dt>
+			<dd>
+				{$info.title}
+			</dd>
+		</dl>
+	</notempty>
+	<notempty name="info.summary">
+		<dl>
+			<dt>
+				留言内容
+			</dt>
+			<dd>
+				{$info.summary}
+			</dd>
+		</dl>
+	</notempty>
+	<notempty name="info.username">
+		<dl>
+			<dt>
+				您的称呼
+			</dt>
+			<dd>
+				{$info.username}
+			</dd>
+		</dl>
+	</notempty>
+	<notempty name="info.phone">
+		<dl>
+			<dt>
+				联系电话
+			</dt>
+			<dd>
+				{$info.phone}
+			</dd>
+		</dl>
+	</notempty>
+	<notempty name="info.addr">
+		<dl>
+			<dt>
+				联系地址
+			</dt>
+			<dd>
+				{$info.addr}
+			</dd>
+		</dl>
+	</notempty>
+	<notempty name="info.email">
+		<dl>
+			<dt>
+				电子邮件
+			</dt>
+			<dd>
+				{$info.email}
+			</dd>
+		</dl>
+	</notempty>
+	<notempty name="info.qq">
+		<dl>
+			<dt>
+				QQ
+			</dt>
+			<dd>
+				{$info.qq}
+			</dd>
+		</dl>
+	</notempty>
+	<notempty name="info.type">
+		<dl>
+			<dt>
+				留言分组
+			</dt>
+			<dd>
+				{$info.type}
+			</dd>
+		</dl>
+	</notempty>
+	<eq name="config.reply" value="1">
+		<dl>
+			<dt>
+				回复留言:
+			</dt>
+			<dd>
+				<form name="reply" method="post" action="{:addons_url('Message://Message/reply')}">
+					<p>
+						<textarea cols="80" rows="6" name="reply_info">{$info.reply_info}</textarea>
+					</p>
+					<p>
+						<input type="hidden" name="id" value="{$info.id}" />
+						<input style="padding: 0.5em;" type="submit" value="提交回复" />
+					</p>
+				</form>
+			</dd>
+		</dl>
+	</eq>
+</block>

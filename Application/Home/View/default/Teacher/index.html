@@ -1,0 +1,88 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/teacher-style.css" rel="stylesheet">
+</block>
+
+<block name="container">
+  <div class="userpage-header">
+    <!--横快一 Stater-->
+    <div class="row white-background">
+      <div class="col-md-12">
+        <div class="media ">
+           <a class="pull-left" href="#">
+              <img class="media-object avatar" src="{$personnel.portrait|get_cover='path'}" 
+              alt="头像">
+           </a>
+           <div class="media-body teacher-type">
+                <h4>{$personnel.name}
+                  <small>{$personnel.company}</small></h4>
+                <div >
+                  <b style="font-size:20px;color: #34495e;">
+                  <switch name="personnel.type">
+                    <case value="1">任课老师</case>
+                    <case value="2">成功人士</case>
+                    <case value="3">领域专家</case>
+                    <default />其他
+                  </switch>
+                  </b>
+                </div>
+                
+                <div class="about">
+                  <b >
+                    {$personnel.synopsis}
+                  </b>
+                </div>
+                <div class="links"></div>
+           </div>
+        </div>
+      </div>
+      </div>
+      <!--横快一 End-->
+    
+      <!--横快二 Stater-->
+      <div class="row white-background">
+        <div class="col-md-12">
+          <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab">录制的视频</a></li>
+          </ul>
+          
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="home">
+              <section class="row demo-row" style="padding: 10px">
+                <!-- Cx标签 statr--> 
+                  <foreach name="resources" item="vo" >
+                    <article class="col-md-3">
+                      <div class="activity-item">
+                        <div class="activity-img">
+                          <a href="{:U('Video/index?id='.$vo['id'])}" >
+                            <img src="{$vo.img|get_cover='path'}"  height="100%" width="100%">
+                          </a>
+                        </div>
+                        <div class="activity-title">
+                            <a>{$vo.title}</a>
+                        </div>  
+                      </div>
+                    </article>
+                  </foreach>
+                <!-- Cx标签 End-->
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--横快二 End-->
+    </div>
+
+</block>
+<block name="script">
+    <script>
+    $(".activity-item").mouseover(function(){
+        $(this).addClass("activity-shadow");
+    });
+     $(".activity-item").mouseout(function(){
+        $(this).removeClass("activity-shadow");
+    });
+    </script>
+</block>
+  

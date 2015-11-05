@@ -1,0 +1,200 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/activity-style.css" rel="stylesheet">
+</block>
+
+<block name="header">
+  <div class="container">
+     <include file="Public/carousel" /> 
+  </div>
+</block>
+
+<block name="container">
+    <section class="row demo-row">
+      <a name='communityt'></a>
+      <div class="text-line gray">
+        <h5><span >特色社团</span></h5>
+        <div class="line"></div>
+      </div>
+    </section>
+
+    <!--横向层二Start-->
+        <section class="row demo-row" >
+          <div class="col-md-12" >
+            <article class="panel panel-default">
+                <div class="browser">
+          <div class="browser-side">
+            <div class="browser-img">
+            <img src="{$community.0.img|get_cover='path'}"></img>
+            </div>
+            <div class="side-text">
+            <!--title-->
+            <h6>{$community.0.title}</h6>
+            <!--内容-->
+            <p>{$community.0.synopsis}</p>
+            </div>
+            <div class="browser-action"></div>
+          </div>
+
+          <div class="browser-content">
+            <!-- Cx标签 statr-->
+            <foreach name="community" item="vo" key="k" >
+            <img src="{$vo.img|get_cover='path'}" alt="" data-assn-title="{$vo.title}" data-assn-content="{$vo.synopsis}">
+            </foreach>
+            <!-- Cx标签 end-->
+          </div>
+        </div>
+              </article>
+          </div>
+        </section>
+      <!--横向层二End-->
+
+      <section class="row demo-row">
+        <a name='ebook'></a>
+      <div class="text-line gray">
+        <h5 ><span>Ebook 读书节</span></h5>
+        <div class="line"></div>
+        </div>
+    </section>
+
+      <!--横向层三Start-->
+      <section  class="row demo-row"  style="margin:0 -5px;">
+         
+            <article class="panel panel-default">
+          <!--面板身体 Start-->
+              <div id="association-div" class="panel-body  blog-post">
+          <div class="panel panel-default">
+        <article class="col-md-9" >
+          <div id="myTabContent" class="tab-content">
+
+            <!-- Cx标签 statr-->
+          <foreach name="reading" item="vo" key="k" >
+            <!-- tab-div{$k} Stater -->
+                  <div class=<eq name="k" value="0">"tab-pane fade in active"<else/>"tab-pane fade"</eq> id="tab-div{$k}">
+                    <article id="book-news" class="media">
+                       <a class="pull-left" href="{$vo.id}">
+                          <img class="media-object" src="{$vo.img|get_cover='path'}" 
+                          alt="媒体对象">
+                       </a>
+                       <div class="media-body">
+                          <h6 class="media-heading">{$vo.title}</h6>
+                          {$vo.synopsis}
+                       </div>
+                    </article>
+            </div>
+            <!-- tab-div{$k} End-->
+          </foreach>
+            <!-- Cx标签 End-->
+           </div>
+        </article>
+        <article class="col-md-3 book-news-tab"  >
+          <ul id="myTab" class="nav nav-tabs">
+            <!-- Cx标签 statr-->
+            <foreach name="reading" item="vo" key="k" >
+              <li class=<eq name="k" value="0">"active"</eq>>
+                <a href="#tab-div{$k}" data-toggle="tab">{$vo.title}</a></li>
+            </foreach>  
+            <!-- Cx标签 End-->
+          </ul>
+        </article>
+        </div>
+             </div>
+      <!--面板身体 End-->
+          </article>
+        </section>
+
+    <!--横向层二End-->
+      
+      <section class="row demo-row">
+        <a name='photography'></a>
+      <div class="text-line gray">
+        <h5><span>美丽校园摄影大赛</span></h5>
+        <div class="line"></div>
+        </div>
+    </section>
+
+  <!--横向层三Stater--> 
+    <section class="row demo-row">
+        <div class="col-md-12">
+        <article class="shoot-book panel panel-default">
+         <ul id = "picture-contest" class="panel-body  blog-post">
+         <li>
+          <eq name="page" value="1"><h4>校园摄影大赛</h4><else/><h4><a href="{:U('Activity/index',array('page'=>$page-1))}#photography">上一页</a></h4></eq>
+          </li>
+         <!-- Cx标签 statr-->
+         <foreach name="photographyImg" item="vo" key="k" >
+
+          <li><a><img src="{$vo.img|get_cover='path'}" alt="{$vo.title}" data-assn-link="{$vo.id}" data-assn-key="{$k}" /></a></li>
+         </foreach> 
+         <!-- Cx标签 End-->
+         <li>
+          <eq name="pageNumber" value="$page"><else/><h4><a href="{:U('Activity/index',array('page'=>$page+1))}#photography">下一页</a></h4></eq>
+          </li>
+         </ul>
+        </article>
+      
+        </div>
+      </section>
+      <!--横向层三End-->
+</block>
+
+<block name="modal">
+  <!--定义变量，供模板使用-->
+  <assign name="modalData" value="$photographyImg" />
+  <include file="Public/modal-media" />
+</block>
+
+<block name="script">
+  <script>
+    $(".activity-item").mouseover(function(){
+        $(this).addClass("activity-shadow");
+    });
+     $(".activity-item").mouseout(function(){
+        $(this).removeClass("activity-shadow");
+    });
+  </script>
+  
+   <script>
+    // 载入数据
+  $(document).ready(function(){
+  //载入特色社团
+  /*
+  var imgs = $(".browser-content").children("img").eq(0);
+  contentAnalysisST(imgs); 
+  */
+  });
+
+  //特色社团载入事件
+  $(".browser-content").children("img").click(function(){
+    contentAnalysisST($(this));
+    //alert($(this).attr("data-assn-title"));
+  });
+
+  //替换图片数据
+  function contentAnalysisST(dateObject) {
+    //获得数据 
+    var title = dateObject.attr("data-assn-title");
+    var content = dateObject.attr("data-assn-content");
+    var imgurl = dateObject.attr("src");
+    $(".side-text").children("h6").text(title );
+    $(".side-text").children("p").text(content);
+    $(".browser-img").children("img").attr("src",imgurl);
+  }
+
+  /**/
+  $("#picture-contest").children("li").children("a").click(function(){
+    var key = $(this).children("img").attr("data-assn-key");
+    showModa(key);
+  });
+  function showModa(key) { 
+    
+    $('#myModal').modal({
+      keyboard: false
+    });
+    $("#myCarouse2").carousel(parseInt(key));
+    //$('video, audio').mediaelementplayer();
+  };
+  </script>
+</block>
+  

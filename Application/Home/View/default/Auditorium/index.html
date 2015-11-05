@@ -1,0 +1,91 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/auditorium-style.css" rel="stylesheet">
+</block>
+
+<block name="header">
+	<!--页头 Stater-->
+  <div class="container">
+    <include file="Public/head-screen" /> 
+  </div>
+  <!--页头 End-->
+</block>
+
+<block name="container">
+    <!--column Stater-->
+    <section id="column">
+      <ol class="breadcrumb">
+        <li><span class="fui-home">&nbsp;&nbsp;</span><a href="__MODULE__/index"><b>主页</b></a></li>
+        <li class="active">{$PageFeature.Title}</li>
+      </ol>
+    </section>
+    <!--column End-->
+
+    <!--横向层一Start-->
+    <section class="row demo-row" >
+
+    <div class="col-md-12" >
+        <!---->
+      <div class="">
+        <ul id="myTab" class="nav nav-tabs">
+        <!-- Cx标签 statr-->
+          <foreach name="tabs" item="vo" key="k">
+            
+            <li class=<eq name="k" value="0">"active"<else/></eq>>
+               <a href="#tabVideo{$k}" data-toggle="tab">{$vo['name']}</a></li>
+            </foreach>
+        <!-- Cx标签 End-->
+        </ul>
+        <article id="myTabContent" class="tab-content">
+        <!-- Cx标签 statr-->
+          <foreach name="tabVideo" item="vos" key="k">
+             
+              <div class= <eq name="k" value="0">"tab-pane fade in active" <else/>"tab-pane fade"</eq> id="tabVideo{$k}">
+                <section class="row demo-row" style="padding: 10px">
+                  <!-- Cx标签 statr-->
+                 
+                  <foreach name="vos" item="vo">
+                    <div class="col-md-4">
+                      <article class="activity-item">
+                        <div class="activity-img">
+                          <a href="{:U('Video/index?id='.$vo['id'])}" class="activity-title" >
+                             <img src="{$vo.img|get_cover='path'}"  height="100%" width="100%">
+                          </a>
+                        </div>
+                        <div class="activity-info"> 
+                          <div class="activity-title">
+                            <a>{$vo.title}</a><hr/>
+                            <span><a href="{:U('Teacher/index?id='.$vo['authority'])}" >{$vo.name}</a></span><strong class="pad_10">|</strong>
+                            <span>{$vo.company}</span>
+                            <span class="width_100">
+                              <a>{$vo.create_time}</a></span>
+                            <div>&nbsp;
+                              <span class="fui-user">&nbsp;&nbsp;{$vo.player_number}</span><span>人学习</span>
+                            </div>
+                          </div>
+                        </div>
+                      
+                      </article>
+                
+                    </div>
+                  </foreach>
+                  <!-- Cx标签 End-->
+                </section>
+          </div>    
+            </foreach>
+        <!-- Cx标签 End-->
+        </article>
+      </div>
+    </div>
+    </section>
+    <!--横向层一End-->
+
+      
+</block>
+<block name="script">
+    <script>
+   
+    </script>
+</block>
+  

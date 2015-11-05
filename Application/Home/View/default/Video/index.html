@@ -1,0 +1,73 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/video-style.css" rel="stylesheet">
+</block>
+
+<block name="container">
+  <!--头部标题部分-->
+  <section id="column">
+    <ol class="breadcrumb">
+      <li ><span class="fui-home">&nbsp;&nbsp;</span><a href="__MODULE__/index"><b>主页</b></a></li>
+      <li >{$PageFeature.Title}</li>
+      <li class="active">{$PageFeature.Title1}</li>
+    </ol>
+  </section>
+  <!--内容部分-->
+  <div class="row">
+    <article class="col-sm-9" >
+      <div class="video-title">
+        <h6 class="indexTitle title1">{$Details.title}
+          </h6>
+      </div>
+      <div id="videoMain" class="video-main">
+        <video  id="example_video_1" class="video-js" preload="auto" poster="{$Details.img|get_cover='path'}" data-setup="{}">
+          <source src="__ROOT__{$Details['video']|get_file_field='path'}" type="{$Details['video']|get_file_field='mime'}" />
+        </video>
+      </div>  
+  </article>
+    
+    <article class="col-sm-3">
+      <div class="indexSub indexSub1">
+          <h6 class="indexTitle title1"><span class="fui-bubble">&nbsp;</span>相关视频
+          </h6>
+          <div id="setList" style="overflow:auto; background: #14191e; height: 449px;">
+            <ul class="indexMedia">
+              <li class="action" ><a style="color: #FFFFFF;" href="" target="">{$Details.title}</a></li>
+              <!-- Cx标签 statr-->
+              <foreach name="SetList" item="vo" key="k" >
+                  <li><a href="{:U('Video/index?id='.$vo['id'])}" target=""><b>{$vo.title}</b></a></li>
+              </foreach>
+              <!-- Cx标签 end-->
+            </ul>
+          </div>
+          
+      </div>
+    </article>      
+  </div>
+
+</block>
+<block name="script">
+    <script>
+    $(document).ready(function(){
+
+      //设置自适应高度
+      /*
+      var videoWidth = $("#videoMain").width();
+      var videoHeight = (videoWidth/16)*9;
+      $("#videoMain").height(videoHeight);
+      $("#setList").height(videoHeight-75);
+      */
+      //设置自动播放
+      var myPlayer = videojs('example_video_1');
+      videojs("example_video_1").ready(function(){
+        var myPlayer = this;
+        myPlayer.play();
+    });
+    });
+
+    
+     
+    </script>
+</block>
+  

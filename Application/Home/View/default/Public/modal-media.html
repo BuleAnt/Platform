@@ -1,0 +1,42 @@
+<!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+       aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+       <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" 
+                   aria-hidden="true"><span class="fui-cross"></span>
+                </button>
+                <h6 class="modal-title" id="myModalLabel">
+                   &nbsp;
+                </h6>
+             </div>
+            <div class="modal-body">
+              <div id="myCarouse2" class="carousel slide">
+
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner">
+                    <!-- Cx标签 statr-->
+                    <foreach name="modalData" item="vo" key="k" >
+                      <div class= <eq name="k" value="0">"item active" <else/> "item "</eq>>
+                        <img src="{$vo.img|get_cover='path'}" alt="{$vo.title}" style="width: 100%;max-width: 880px;height: auto;max-height: 495px"/>
+                        <div class="text">
+                        <h5>{$vo.title}</h5>
+                        <p>{$vo.synopsis}</p>
+                      </div>
+                      </div>
+                      
+                    </foreach>
+                    <!-- Cx标签 end-->
+                </div>
+                 <!-- 轮播（Carousel）导航 -->
+                <a class="camera_prev " href="#myCarouse2" 
+                    data-slide="prev"><span></span></a>
+                <a class="camera_next " href="#myCarouse2" 
+                    data-slide="next"><span></span></a>
+              </div> 
+            </div>
+             <div class="modal-footer"><!--在这里添加按钮等--></div>
+          </div><!-- /.modal-content -->
+       </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->

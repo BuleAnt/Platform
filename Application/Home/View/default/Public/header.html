@@ -1,0 +1,85 @@
+
+<!-- 子导航
+================================================== -->
+<div class="subNav">
+	 <div class="navbar-inner" style="min-height: 28px;background-image: -webkit-linear-gradient(top, #1DB7E5, #21A3CA);border-radius: 0px;">
+    </div>
+</div>
+
+<!-- 顶部包
+================================================== -->
+<div class="topWrap head-div">
+	<div class="container ">
+    <h4><strong><a class="brand" href="{:U('index/index')}">{:C('WEB_SITE_TITLE')}</a></strong><br>
+      <small>{:C('WEB_ADDRESS')}</small>
+    </h4>
+	</div>
+</div>
+
+<!-- 导航条
+================================================== -->
+<div class="navDiv">
+    <div class="container navbar navbar-embossed"  role="navigation" >
+        <div class="navbar-collapse collapse ">
+            <ul class="nav navbar-nav navbar-left">
+                <think:nav name="nav">
+                    <eq name="nav.pid" value="0">
+                    <li class=<eq name="PageFeature.ControllerName" value="$nav.url">"active"<else/></eq>>
+                        <a href="{$nav.url|get_nav_url}" target="<eq name='nav.target' value='1'>_blank<else/>_self</eq>">{$nav.title}</a>
+                    </li>
+                    </eq>
+                </think:nav>
+            </ul>
+            
+            <if condition="is_login()">
+                <ul class="nav navbar-nav navbar-right" style="margin-right:0">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:0;padding-right:0">{:get_username()} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{:U('User/info')}">个人中心</a></li>
+                            <li><a href="{:U('User/profile')}">修改密码</a></li>
+                            <li><a href="{:U('User/logout')}">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <else/>
+                <ul class="nav navbar-nav navbar-right" style="margin-right:0">
+                    <li>
+                        <a href="{:U('User/login')}">登录</a>
+                    </li>
+                    <li>
+                        <a href="{:U('User/register')}" style="padding-left:0;padding-right:0">注册</a>
+                    </li>
+                </ul>
+            </if>
+
+        </div>
+        
+        <div class="nav-collapse collapse pull-right">
+            <if condition="is_login()">
+                <ul class="nav" style="margin-right:0">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:0;padding-right:0">{:get_username()} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{:U('User/profile')}">修改密码</a></li>
+                            <li><a href="{:U('User/logout')}">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <else/>
+                <ul class="nav" style="margin-right:0">
+                    <li>
+                        <a href="{:U('User/login')}">登录</a>
+                    </li>
+                    <li>
+                        <a href="{:U('User/register')}" style="padding-left:0;padding-right:0">注册</a>
+                    </li>
+                </ul>
+            </if>
+        </div>
+
+        </div>
+    
+</div>
+
+

@@ -1,0 +1,126 @@
+<extend name="Base/common"/>
+
+<block name="style">
+	<link href="__CSS__/page/news-style.css" rel="stylesheet">
+
+</block>
+
+<block name="container">
+  <!--头部标题部分-->
+  <div id="HeadBoox">
+    <div class="time">
+      <span class="fui-time">&nbsp;</span>
+      {$data.time|default=time()|date='Y年m月d日',###}
+    </div>
+    <div class="weather">
+      <iframe class="weather"  allowtransparency="true" frameborder="0" width="300" height="20" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&amp;z=1&amp;t=1&amp;v=0&amp;d=1&amp;bd=0&amp;k=&amp;f=808080&amp;q=1&amp;e=0&amp;a=1&amp;c=54527&amp;w=300&amp;h=24&amp;align=left"></iframe>
+    </div>
+  </div>
+  <!--内容部分-->
+  <div class="row">
+    <article id="indexMain" class="col-sm-8">
+        <ul class="indexList" id="pic">
+          <!-- Cx标签 statr-->
+          <foreach name="news" item="vo" key="k" >
+            <li>
+              <div class="media">
+                 <a class="pull-left" href="#">
+                    <img class="media-object" src="{$vo.img|get_cover='path'}" 
+                    alt="">
+                 </a>
+                 <div class="media-body">
+                    <hgroup>
+                      <h4 class="media-heading"><a href="{:U('New/index?type=1&id='.$vo['id'])}" target="">{$vo.title}</a></h4>
+                      <h5><span></span>{$vo.create_time|default=time()|date='Y-m-d',###}</h5>
+                    </hgroup>
+                    <section>    {$vo.synopsis}</section>
+                    <div class="cl"></div>
+                 </div>
+              </div>
+            </li>  
+          </foreach>
+          <!-- Cx标签 end-->
+            
+        </ul>
+        <div class="tc"><a href="{:U('Newlist/index?type=1&group=-1')}" class="more">查看更多</a></div>
+    </article>
+    
+    <article class="col-sm-4">
+
+      <div class="indexSub indexSub1">
+          <h6 class="indexTitle title1"><span class="fui-bubble">&nbsp;</span>通知
+             <a href="{:U('Newlist/index?type=1&group=3')}" ><span class="badge pull-right">move</span></a>
+          </h6>
+          <ul class="indexMedia">
+            <!-- Cx标签 statr-->
+            <foreach name="notice" item="vo" key="k" >
+                <li><a href="{:U('New/index?type=1&id='.$vo['id'])}" target="">{$vo.title}</a></li>
+            </foreach>
+            <!-- Cx标签 end-->
+          </ul>
+      </div>
+
+      <div class="indexSub indexSub2">
+          <h6 class="indexTitle title1"><span class="fui-windows">&nbsp;</span>学院新闻
+          <a href="{:U('Newlist/index?type=1&group=2')}"  ><span class="badge pull-right">move</span></a>
+          </h6>
+
+        <!--Carousel start-->
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+            <!-- 轮播（Carousel）指标 -->
+            <ol class="carousel-indicators">
+              <!-- Cx标签 statr-->
+              <foreach name="collegeNews" item="vo" key="k" >
+                <li data-target="#myCarousel" data-slide-to="{$k}" 
+                  class= <eq name="k" value="0">"active"</eq> ></li>
+              </foreach>
+              <!-- Cx标签 end-->
+            </ol>   
+            <!-- 轮播（Carousel）项目 -->
+            <div class="carousel-inner">
+              <!-- Cx标签 statr-->
+              <foreach name="collegeNews" item="vo" key="k" >
+                <div class= <eq name="k" value="0">"item active" <else/> "item "</eq>>
+                  <a href="{:U('New/index?type=1&id='.$vo['id'])}"><img src="{$vo.img|get_cover='path'}" alt="{$vo.title}" /></a>
+                   <div class="carousel-caption">{$vo.title}</div>
+                </div>
+              </foreach>
+              <!-- Cx标签 end-->
+            </div>
+          </div> 
+        <!--Carousel End-->
+      </div>
+        
+      <!-------->
+      <div class="indexSub indexSub1">
+        <h6 class="indexTitle title1"><span class="fui-bubble">&nbsp;</span>热门资讯
+           <a href="{:U('Newlist/index?type=1&group=1')}" ><span class="badge pull-right">move</span></a>
+        </h6>
+          <div id="text-div" class="panel-body  blog-post" style="padding:5px;">
+            <volist name="hotTopics" id="vo" key="k" offset="0" length='9'  >
+              <div class="media media-number">
+                <div class="media-left">
+                  <span class="num">{$k}</span>
+                </div>
+                <div class="media-body">
+                  <a href="{:U('New/index?type=1&id='.$vo['id'])}" title="{$vo.title}">{$vo.title}</a>
+                </div>
+              </div>
+            </volist>
+          <div>
+      </div>
+    </article>      
+  </div>
+
+</block>
+<block name="script">
+    <script>
+    $(".activity-item").mouseover(function(){
+        $(this).addClass("activity-shadow");
+    });
+     $(".activity-item").mouseout(function(){
+        $(this).removeClass("activity-shadow");
+    });
+    </script>
+</block>
+  

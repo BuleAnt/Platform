@@ -1,0 +1,23 @@
+<!--Carousel start-->
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators">
+      <!-- Cx标签 statr-->
+      <foreach name="banner" item="vo" key="k" >
+        <li data-target="#myCarousel" data-slide-to="{$k}" 
+          class= <eq name="k" value="0">"active"</eq> ></li>
+      </foreach>
+    </ol>   
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+      <!-- Cx标签 statr-->
+      <foreach name="banner" item="vo" key="k" >
+        <div class= <eq name="k" value="0">"item active" <else/> "item "</eq>>
+          <a target="_blank" href="{$vo.url}" ><img src="{$vo.img|get_cover='path'}" alt="{$vo.title}" /></a>
+        </div>
+      </foreach>
+      <!-- Cx标签 end-->
+    </div>
+  </div> 
+<!--Carousel End-->
+
