@@ -1,0 +1,104 @@
+	/*头图背景*/
+    #HeadScreen>div { 
+      background: url('../../images/page/auditorium/zhibojiaoshi.jpg') no-repeat center;
+      background-size: auto 100%;
+     }
+     /* tab 标签重写*/
+    .nav-tabs { border-bottom: 0px solid #ddd; font-size: 15px;}
+    .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+      color: #3498DB;
+      cursor: default;
+      background-color: #fff;
+      border: 0px solid #ddd; 
+      border-bottom-color: transparent; }
+     #myTab>li>a { padding: 2px 30px;}
+     #myTabContent > .tab-pane{min-height:480px; } 
+     /*tab 胶囊标签重写*/
+     .nav-pills>li {
+        border: 1px solid rgb(66, 139, 202);
+        margin-right: 8px;
+        border-radius: 16px;
+      }
+      .nav-pills>li>a {
+        border-radius: 16px;
+      }
+
+    /*教学内容*/
+    .blog-post-title {
+      margin: 15px 0px 5px 0px;
+    }
+    .blog-post-meta {
+      padding: 0 12px;
+      font-size: 14px;
+      color: #999;
+    }
+    .blog-post-body
+    {
+      padding: 10px 15px 10px 15px;
+    }
+    .blog-post-body > article > p{  
+      font-size: 16px;
+      line-height: 1;
+      display:block; 
+      /* Safari, Opera, and Chrome */
+      display:-webkit-box;
+      -webkit-box-direction:normal;
+
+      /* W3C */
+      display:box;
+      box-direction:normal;
+    }
+    .blog-post-body > article {margin-bottom: 20px;}
+    .blog-post-body > article > p>span { display:block; max-width: 86%;
+       font-size: 14px;line-height: 1.5;color: #7F8C8D;margin-right: 6px;}
+    .blog-post-body > article > div>span { display:block; max-width: auto;
+       font-size: 16px;line-height: 1.7;color: #7F8C8D;}  
+
+
+    /*重写dt dd*/
+    dt {
+      display:inline-block;
+      -webkit-margin-start: 10px;
+
+    }
+    dd {
+      display: block;
+      font-size: 14px;
+      -webkit-margin-start: 40px;
+      color:#999;
+    }
+    dd > p{
+      display: block;
+      font-size: 14px;
+     
+      color:#999;
+    }
+    dt, dd {
+      line-height: 1.72222;
+    }
+
+    details > dl {
+      -webkit-margin-start: 10px;
+    }
+
+    /*设置表格*/
+    .table {
+      
+      color: #999;
+      font-size: 14px;
+    }
+
+    /**/
+    .rightsidebar >.list-group-item {
+      padding: 10px 6px;
+      display:block;
+      white-space:nowrap; 
+      overflow:hidden; 
+      text-overflow:ellipsis;
+      font-size:14px; 
+    }
+    #edulist>li>a {
+    position: relative;
+    display: block;
+    padding: 4px 15px;
+}

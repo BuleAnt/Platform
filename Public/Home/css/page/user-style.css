@@ -1,0 +1,47 @@
+/*登录页面样式*/
+.btn{
+padding: 4px 15px;
+font-size: 18px;
+font-weight: 600;
+}
+
+.login-form ,.register-form{
+position: relative;
+padding: 10px 30px 20px;
+background-color: #FFFFFF;
+border-radius: 6px;
+}
+
+.prompt-text{
+padding: 0px 30px 20px;
+font-size: 18px;
+text-align: center;
+}
+
+.panel-heading h2{margin: 18px 10px 10px;}
+label {
+display: inline-block;
+max-width: 100%;
+margin-bottom: 5px; 
+font-weight: bold;
+}
+
+.avatar {
+-webkit-border-radius: 50%;
+-moz-border-radius: 50%;
+border-radius: 50%;
+width: 160px !important;
+height: 160px !important;
+}
+
+.userpage-header .row {
+padding-top: 25px;
+padding-bottom: 25px;
+}
+
+.userpage-header h4 small { font-size: 16px; color: #096;}
+.teacher-type  h4 { color: #2C3E50;}
+.teacher-type ,.about { color: #999999; padding-left:20px; }
+.white-background{ background-color: #FFFFFF; padding: 20px 15px; margin: 20px 0px 10px ;}
+.text-end {text-align: end;padding-right: 10px;}
+#myTabContent{padding: 20px 10px 30px;}
